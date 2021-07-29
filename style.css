@@ -5,7 +5,12 @@
 }
 
 :root {
-    --number-button-background-hover: #d9d9d7;
+    background: linear-gradient(to right, #4e4b4b, grey);
+    --number-button-background: grey;
+    --main-operand-background: orange;
+    --top-function-button-background: rgba(0,0,0,20%);
+    --answer-box-background: rgba(0,0,0,60%);
+    --text-color: white;
 }
 
 h1 {
@@ -22,22 +27,38 @@ body {
 
 button {
     font-size: 1.5rem;
-    border: 1px solid grey;
+    border: 1px solid black;
     cursor: pointer;
+    color: var(--text-color);
 }
 
-button:hover {
-    background-color: var(--number-button-background-hover);
+.number, #period {
+    background-color: var(--number-button-background);
+}
+
+#division, #multiply, #subtract, #add, #equals {
+    background-color: var(--main-operand-background);
+}
+
+#ac, #plus_minus, #percent {
+    background-color: var(--top-function-button-background);
 }
 
 #calculator {
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
     width: 50vw;
     height: 75vh;
-    max-width: 560px;
+    max-width: 450px;
+    box-shadow: 0 2px 2px 1px rgba(0,0,0,50%);
     border-radius: 10px;
+}
+
+#answer-box {
+    background-color: var(--answer-box-background);
+    height: 100%;
+    border-radius: 10px 10px 0 0;
+    border: 1px solid black;
 }
 
 .row {
@@ -53,5 +74,9 @@ button:hover {
 
 .row:last-child > .number {
     width: 50%;
-    border-radius: 0 0 0 5px;
+    border-radius: 0 0 0 10px;
+}
+
+#equals {
+    border-radius: 0 0 10px 0;
 }
