@@ -11,6 +11,9 @@
     --top-function-button-background: rgba(0,0,0,20%);
     --answer-box-background: rgba(0,0,0,60%);
     --text-color: white;
+    --number-button-hover-background: rgba(128, 128, 128, 50%);
+    --main-operand-hover-background: hsl(39, 100%, 40%);
+    --top-function-button-hover-background: rgba(0,0,0,30%);
 }
 
 h1 {
@@ -26,30 +29,43 @@ body {
 }
 
 button {
-    font-size: 1.5rem;
+    font-size: 2rem;
     border: 1px solid black;
     cursor: pointer;
     color: var(--text-color);
+    
 }
 
 .number, #period {
     background-color: var(--number-button-background);
 }
 
-#division, #multiply, #subtract, #add, #equals {
+.number:hover, #period:hover {
+    background-color: var(--number-button-hover-background);
+}
+
+.main-operand {
     background-color: var(--main-operand-background);
 }
 
-#ac, #plus_minus, #percent {
+.main-operand:hover {
+    background-color: var(--main-operand-hover-background);
+}
+
+.top-function {
     background-color: var(--top-function-button-background);
+}
+
+.top-function:hover {
+    background-color: var(--top-function-button-hover-background);
 }
 
 #calculator {
     display: flex;
     flex-direction: column;
+    max-width: 450px;
     width: 50vw;
     height: 75vh;
-    max-width: 450px;
     box-shadow: 0 2px 2px 1px rgba(0,0,0,50%);
     border-radius: 10px;
 }
@@ -79,4 +95,25 @@ button {
 
 #equals {
     border-radius: 0 0 10px 0;
+}
+
+@media (max-width: 850px) {
+    #calculator {
+        width: 80%;
+    }
+}
+
+@media (max-width: 375px) {
+    button {
+        font-size: 1.5rem;
+    }
+    #calculator {
+        height: 60vh;
+    }
+}
+
+@media (max-width: 190px) {
+    button {
+        font-size: 1rem;
+    }
 }
