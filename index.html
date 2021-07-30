@@ -3,41 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=s, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css" type="text/css">
     <title>Calculator</title>
 </head>
 <body>
     <div id="calculator">
         <div class="row">
-            <div id="answer-box"></div>
+            <div id="answer-box">
+                <p id="number-stage"></p>
+            </div>
         </div>
         <div class="row">
-            <button id="ac" class="top-function">AC</button>
-            <button id="plus_minus" class="top-function">+/-</button>
+            <button id="ac" class="top-function" onclick=allClear()>AC</button>
+            <button id="plus-minus" class="top-function">+/-</button>
             <button id="percent" class="top-function">%</button>
             <button id="division" class="main-operand">/</button>
         </div>
         <div class="row">
-            <button class="number">7</button>
-            <button class="number">8</button>
-            <button class="number">9</button>
+            <button class="number" onclick=stageNumber(7)>7</button>
+            <button class="number" onclick=stageNumber(8)>8</button>
+            <button class="number" onclick=stageNumber(9)>9</button>
             <button id="multiply" class="main-operand">x</button>
         </div>
         <div class="row">
-            <button class="number">4</button>
-            <button class="number">5</button>
-            <button class="number">6</button>
+            <button class="number" onclick=stageNumber(4)>4</button>
+            <button class="number" onclick=stageNumber(5)>5</button>
+            <button class="number" onclick=stageNumber(6)>6</button>
             <button id="subtract" class="main-operand">-</button>
         </div>
         <div class="row">
-            <button class="number">1</button>
-            <button class="number">2</button>
-            <button class="number">3</button>
+            <button class="number" onclick=stageNumber(1)>1</button>
+            <button class="number" onclick=stageNumber(2)>2</button>
+            <button class="number" onclick=stageNumber(3)>3</button>
             <button id="add" class="main-operand">+</button>
         </div>
         <div class="row">
-            <button class="number">0</button>
+            <button class="number" onclick=stageNumber(0)>0</button>
             <button id="period">.</button>
             <button id="equals" class="main-operand">=</button>
         </div>
