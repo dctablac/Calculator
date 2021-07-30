@@ -7,12 +7,12 @@
 :root {
     background: linear-gradient(to right, #4e4b4b, grey);
     --number-button-background: grey;
-    --main-operand-background: orange;
+    --main-operator-background: orange;
     --top-function-button-background: rgba(0,0,0,20%);
     --answer-box-background: rgba(0,0,0,60%);
     --text-color: white;
     --number-button-hover-background: rgba(128, 128, 128, 50%);
-    --main-operand-hover-background: hsl(39, 100%, 40%);
+    --main-operator-hover-background: hsl(39, 100%, 40%);
     --top-function-button-hover-background: rgba(0,0,0,30%);
 }
 
@@ -44,12 +44,12 @@ button {
     background-color: var(--number-button-hover-background);
 }
 
-.main-operand {
-    background-color: var(--main-operand-background);
+.main-operator {
+    background-color: var(--main-operator-background);
 }
 
-.main-operand:hover {
-    background-color: var(--main-operand-hover-background);
+.main-operator:hover {
+    background-color: var(--main-operator-hover-background);
 }
 
 .top-function {
@@ -72,7 +72,8 @@ button {
 
 #answer-box {
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: var(--answer-box-background);
     height: 100%;
     border-radius: 10px 10px 0 0;
@@ -83,8 +84,16 @@ button {
 #answer-box p {
     display: flex;
     font-size: 3rem;
-    align-items: flex-end;
     padding: 2%;
+    border: 1px solid white;
+}
+
+#answer-box p:first-child {
+    font-size: 1.5rem;
+}
+
+#answer-box p:last-child {
+    justify-content: flex-end;
 }
 
 .row:first-child {
