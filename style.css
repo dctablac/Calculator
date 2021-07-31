@@ -85,7 +85,6 @@ button {
     display: flex;
     font-size: 3rem;
     padding: 2%;
-    border: 1px solid white;
 }
 
 #answer-box p:first-child {
