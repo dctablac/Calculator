@@ -1,10 +1,17 @@
+const tick = new Audio('tick.wav');
+
 stageNumber = (number) => {
     let currentValue = document.getElementById("number-stage").innerHTML;
-    document.getElementById("number-stage").innerHTML = currentValue+number;
+    if (currentValue === "0") {
+        document.getElementById("number-stage").innerHTML = number;
+    }
+    else {
+        document.getElementById("number-stage").innerHTML = currentValue+number;
+    }
 }
 
 allClear = () => {
-    document.getElementById("number-stage").innerHTML = "";
+    document.getElementById("number-stage").innerHTML = 0;
     document.getElementById("number-store").innerHTML = "";
 }
 
@@ -18,16 +25,16 @@ evaluate = (first, second, operator) => {
     let result = 0;
     switch (operator) {
         case "/":
-            result = first / second;
+            result = Number(first) / Number(second);
             break;
         case "x":
-            result = first * second;
+            result = Number(first) * Number(second);
             break;
         case "-":
-            result = first - second;
+            result = Number(first) - Number(second);
             break;
         case "+":
-            result = first + second;
+            result = Number(first) + Number(second);
             break;
     }
     return result;
@@ -71,6 +78,16 @@ equals = () => {
     document.getElementById("number-store").innerHTML = "";
 }
 
+addDecimal = () => {
+    currentStagedNumber = document.getElementById("number-stage").innerHTML;
+    if (!currentStagedNumber.includes(".")) {
+        document.getElementById("number-stage").innerHTML += ".";
+    } 
+    else {
+        tick.play();
+    }
+}
+
 document.getElementById("division").onclick = () => {
     operate("/");
 };
@@ -82,4 +99,7 @@ document.getElementById("subtract").onclick = () => {
 }
 document.getElementById("add").onclick = () => {
     operate("+");
+}
+document.getElementById("decimal").onclick = () => {
+    addDecimal();
 }
