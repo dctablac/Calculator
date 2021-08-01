@@ -1,5 +1,8 @@
 const tick = new Audio('tick.wav');
 
+// TODO: Create calculation history; Able to hide.
+// TODO: Slider for lighter theme? (Like windows?) -> Color switch
+
 stageNumber = (number) => {
     let currentValue = document.getElementById("number-stage").innerHTML;
     if (currentValue === "0") {
@@ -18,7 +21,7 @@ allClear = () => {
 storeNumber = () => {
     let stagedNumber = document.getElementById("number-stage").innerHTML;
     document.getElementById("number-store").innerHTML = stagedNumber;
-    document.getElementById("number-stage").innerHTML = "";
+    document.getElementById("number-stage").innerHTML = "0";
 }
 
 evaluate = (first, second, operator) => {
@@ -40,17 +43,13 @@ evaluate = (first, second, operator) => {
     return result;
 }
 
-// 2 Cases for Operands to Handle
-// 1) No number in store yet on operand click
-// 2) Number in store and stage
-
-
+// Function to evaluate numbers based on 4 calculator states. 
 operate = (operator) => {
     currentStoredNumber = document.getElementById("number-store").innerHTML;
     currentStagedNumber = document.getElementById("number-stage").innerHTML;
-    if (currentStoredNumber === "" && currentStagedNumber !== "") { // Only first number inputted, nothing stored yet, just add operator
+    if (currentStoredNumber === "" && currentStagedNumber !== "") { // Only first number staged, nothing stored yet, just add operator
         storeNumber();
-        document.getElementById("number-store").innerHTML += " " + operator;
+        document.getElementById("number-store").innerHTML += " " + operator; // Space added before operator for format
     }
     else if (currentStoredNumber !== "" && currentStagedNumber === "") { // First number stored, second number not staged, just change operator
         storedSplit = currentStoredNumber.split(" ");
@@ -62,20 +61,26 @@ operate = (operator) => {
         document.getElementById("number-store").innerHTML = result + " " + operator;
         document.getElementById("number-stage").innerHTML = "";
     }
-    else {
-        console.log("Nothing to operate on");
+    else { // No numbers stored.
+        return;
     }
 }
 
 equals = () => {
-    currentStoredNumber = document.getElementById("number-store").innerHTML.split(" ");
-    first = currentStoredNumber[0];
-    operator = currentStoredNumber[1];
+    currentStoredOperation = document.getElementById("number-store").innerHTML.split(" ");
+    first = currentStoredOperation[0];
+    operator = currentStoredOperation[1];
     second = document.getElementById("number-stage").innerHTML;
-    
-    result = evaluate(first, second, operator);
-    document.getElementById("number-stage").innerHTML = result;
-    document.getElementById("number-store").innerHTML = "";
+
+    if (first === "") { // Nothing stored, keep stage same
+        tick.play();
+        return;
+    }
+    else {
+        result = evaluate(first, second, operator);
+        document.getElementById("number-stage").innerHTML = result;
+        document.getElementById("number-store").innerHTML = "";
+    }
 }
 
 addDecimal = () => {
@@ -86,6 +91,15 @@ addDecimal = () => {
     else {
         tick.play();
     }
+}
+
+flipSign = () => {
+    document.getElementById("number-stage").innerHTML *= -1;
+}
+
+percentage = () => {
+    currentNumber = Number(document.getElementById("number-stage").innerHTML);
+    document.getElementById("number-stage").innerHTML = currentNumber * .01;
 }
 
 document.getElementById("division").onclick = () => {

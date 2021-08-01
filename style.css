@@ -40,7 +40,7 @@ button {
     background-color: var(--number-button-background);
 }
 
-.number:hover, #period:hover {
+.number:hover, #decimal:hover {
     background-color: var(--number-button-hover-background);
 }
 
