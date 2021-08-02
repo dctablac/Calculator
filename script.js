@@ -54,12 +54,13 @@ operate = (operator) => {
     else if (currentStoredNumber !== "" && currentStagedNumber === "") { // First number stored, second number not staged, just change operator
         storedSplit = currentStoredNumber.split(" ");
         document.getElementById("number-store").innerHTML = storedSplit[0] + " " + operator;
+        document.getElementById("number-stage").innerHTML = "0";
     }
     else if (currentStoredNumber !== "" && currentStagedNumber !== "") { // First number stored, second number staged, evaluate, then apply operator again.
         first = currentStoredNumber.split(" ")[0];
         result = evaluate(first, currentStagedNumber, operator);
         document.getElementById("number-store").innerHTML = result + " " + operator;
-        document.getElementById("number-stage").innerHTML = "";
+        document.getElementById("number-stage").innerHTML = "0";
     }
     else { // No numbers stored.
         return;
