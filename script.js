@@ -5,59 +5,58 @@ const tick = new Audio('tick.wav');
 
 // Number being inputted
 stageNumber = (number) => {
-    let stagedNumber = document.getElementById("number-stage").innerHTML;
-    if (stagedNumber === "0" || stagedNumber === "Not a number") {
+    let staged = document.getElementById("number-stage").innerHTML;
+    if (staged === "0" || staged === "Not a number") {
         document.getElementById("number-stage").innerHTML = number;
         document.getElementById("ac").innerHTML = "C";
     }
     else {
-        document.getElementById("number-stage").innerHTML = stagedNumber+number;
+        document.getElementById("number-stage").innerHTML = staged+number;
     }
 }
 
 // Number being stored so next can be inputted
 storeNumber = () => {
-    let stagedNumber = document.getElementById("number-stage").innerHTML;
-    if (stagedNumber === "Not a number") {
+    let staged = document.getElementById("number-stage").innerHTML;
+    if (staged === "Not a number") {
         tick.play();
     }
     else {
-        document.getElementById("number-store").innerHTML = stagedNumber;
+        document.getElementById("number-store").innerHTML = staged;
         document.getElementById("number-stage").innerHTML = "0";
     }
 }
 
 // AC / C button
 allClear = () => {
-    currentStagedNumber = document.getElementById("number-stage").innerHTML;
-    currentStoredNumber = document.getElementById("number-store").innerHTML;
-    if (currentStagedNumber === "0") {
+    staged = document.getElementById("number-stage").innerHTML;
+    stored = document.getElementById("number-store").innerHTML;
+    if (staged === "0") {
         document.getElementById("number-store").innerHTML = "";
     }
     document.getElementById("number-stage").innerHTML = "0"; // Always clear stage
     document.getElementById("ac").innerHTML = "AC";
-    console.log("Here")
 }
 
-evaluate = (first, second, operator) => {
+evaluate = (stored, staged, operator) => {
     let result = 0;
     switch (operator) {
         case "/":
-            if (Number(second) === 0) {
+            if (Number(staged) === 0) {
                 result = "Not a number";
             }
             else {
-                result = Number(first) / Number(second);
+                result = Number(stored) / Number(staged);
             }
             break;
         case "x":
-            result = Number(first) * Number(second);
+            result = Number(stored) * Number(staged);
             break;
         case "-":
-            result = Number(first) - Number(second);
+            result = Number(stored) - Number(staged);
             break;
         case "+":
-            result = Number(first) + Number(second);
+            result = Number(stored) + Number(staged);
             break;
     }
     return result;
@@ -65,24 +64,26 @@ evaluate = (first, second, operator) => {
 
 // Function to evaluate numbers based on 4 calculator states. 
 operate = (operator) => {
-    currentStoredNumber = document.getElementById("number-store").innerHTML;
-    currentStagedNumber = document.getElementById("number-stage").innerHTML;
-    if (currentStagedNumber === "Not a number") {
+    stored = document.getElementById("number-store").innerHTML;
+    staged = document.getElementById("number-stage").innerHTML;
+    if (staged === "Not a number") {
         tick.play();
         return;
     }
-    if (currentStoredNumber === "" && currentStagedNumber !== "") { // Only first number staged, nothing stored yet, just add operator
+    if (stored === "" && staged !== "") { // Only first number staged, nothing stored yet, just add operator
         storeNumber();
         document.getElementById("number-store").innerHTML += " " + operator; // Space added before operator for format
     }
-    else if (currentStoredNumber !== "" && (currentStagedNumber === "" || currentStagedNumber === "0")) { // First number stored, second number not staged, just change operator
-        storedSplit = currentStoredNumber.split(" ");
+    else if (stored !== "" && (staged === "0")) { // First number stored, second number not staged, just change operator
+        storedSplit = stored.split(" ");
         document.getElementById("number-store").innerHTML = storedSplit[0] + " " + operator;
         document.getElementById("number-stage").innerHTML = "0";
     }
-    else if (currentStoredNumber !== "" && (currentStagedNumber !== "" || currentStagedNumber != "0")) { // First number stored, second number staged, evaluate, then apply operator again.
-        first = currentStoredNumber.split(" ")[0];
-        result = evaluate(first, currentStagedNumber, operator);
+    else if (stored !== "" && (staged != "0")) { // First number stored, second number staged, evaluate, then store new operator.
+        storedSplit = stored.split(" ");
+        storedOperator = storedSplit[1];
+        storedNumber = storedSplit[0];
+        result = evaluate(storedNumber, staged, storedOperator);
         document.getElementById("number-store").innerHTML = result + " " + operator;
         document.getElementById("number-stage").innerHTML = "0";
     }
@@ -93,17 +94,17 @@ operate = (operator) => {
 
 // = button
 equals = () => {
-    currentStoredOperation = document.getElementById("number-store").innerHTML.split(" ");
-    first = currentStoredOperation[0];
-    operator = currentStoredOperation[1];
-    second = document.getElementById("number-stage").innerHTML;
+    stored = document.getElementById("number-store").innerHTML.split(" ");
+    storedNumber = stored[0];
+    operator = stored[1];
+    staged = document.getElementById("number-stage").innerHTML;
 
-    if (first === "") { // Nothing stored, keep stage same
+    if (storedNumber === "") { // Nothing stored, keep stage same
         tick.play();
         return;
     }
     else {
-        result = evaluate(first, second, operator);
+        result = evaluate(storedNumber, staged, operator);
         document.getElementById("number-stage").innerHTML = result;
         document.getElementById("number-store").innerHTML = "";
     }
@@ -111,8 +112,8 @@ equals = () => {
 
 // '.' button
 addDecimal = () => {
-    currentStagedNumber = document.getElementById("number-stage").innerHTML;
-    if (!currentStagedNumber.includes(".")) {
+    staged = document.getElementById("number-stage").innerHTML;
+    if (!staged.includes(".")) {
         document.getElementById("number-stage").innerHTML += ".";
     } 
     else {
@@ -127,8 +128,8 @@ flipSign = () => {
 
 // % button
 percentage = () => {
-    currentNumber = Number(document.getElementById("number-stage").innerHTML);
-    document.getElementById("number-stage").innerHTML = currentNumber * .01;
+    staged = Number(document.getElementById("number-stage").innerHTML);
+    document.getElementById("number-stage").innerHTML = staged * .01;
 }
 
 // Main operator buttons
